@@ -1,0 +1,47 @@
+{
+  "name": "dd-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon server/index.js",
+    "devFront": "cross-env NODE_ENV=development webpack --mode development",
+    "dev-server": "cross-env NODE_ENV=development webpack-dev-server --mode development --open",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run dev-server\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false webpack -p"
+  },
+  "proxy": "http://localhost:4300/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EgorGo23/dd-test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EgorGo23/dd-test/issues"
+  },
+  "homepage": "https://github.com/EgorGo23/dd-test#readme",
+  "dependencies": {
+    "@babel/polyfill": "^7.10.1",
+    "express": "^4.17.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "styled-components": "^5.1.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
+    "@babel/preset-react": "^7.10.1",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-styled-components": "^1.10.7",
+    "cross-env": "^7.0.2",
+    "css-loader": "^3.6.0",
+    "html-webpack-plugin": "^4.3.0",
+    "nodemon": "^2.0.4",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
