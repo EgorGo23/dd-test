@@ -36,10 +36,12 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    port: 4100,
+    port: 4120,
     open: isWindows ? 'chrome' : 'google-chrome',
     proxy: {
-      '/api': 'http://localhost:4300/',
+      '/astronauts': 'http://localhost:4320/',
+      "secure": false,
+      "changeOrigin": true
     },
   },
   devtool: isDev ? 'source-map' : '',
