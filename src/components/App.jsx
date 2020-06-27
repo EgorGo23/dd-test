@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { v4 as uuidv4 } from 'uuid';
+
 import {withDataFetching} from './hoc';
 import Table from './Table';
-import AddItemPanel from './AddItemPanel';
 
 const AppContainer = styled.div`
     width: 100%;
@@ -11,26 +10,11 @@ const AppContainer = styled.div`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    padding-bottom: 100px;
+    position: relative;
 `;
 
-const App = ({dataFromApi}) => {
-    const [astronauts, setAstronauts] = useState([]);
-
-    useEffect(() => {
-        if (!!dataFromApi.data) {
-            // Проставляем id каждому элементу массива астронавтов
-            const withId = dataFromApi.data.reduce((acc, element) => {
-                if (!element.id) {
-                    element.id = uuidv4();
-                    acc.push(element);
-                }
-                
-                return acc;
-            }, [])
-            setAstronauts(withId);
-        }
-    }, [dataFromApi.data]);
-    
+const App = ({dataFromApi}) => {  
     return (
         <AppContainer>
             {
@@ -45,7 +29,7 @@ const App = ({dataFromApi}) => {
             }
             {
                 !!dataFromApi.data && (
-                    <Table data={astronauts} />
+                    <Table data={dataFromApi.data} />
                 )
             }
         </AppContainer>
