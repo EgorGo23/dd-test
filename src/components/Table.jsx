@@ -3,15 +3,15 @@ import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import areFilled from '../utils/areFilled';
 import byField from '../utils/byField';
+import Filter from './Filter';
 
 const TableContainer = styled.table`
     font-family: 'Montserrat';
-    width: 70%;
     margin: 0 auto;
     border-collapse: collapse;
 
     th, td {
-        padding: 20px;
+        padding: 10px;
         text-align: center;
     }
 
@@ -22,34 +22,35 @@ const TableContainer = styled.table`
     button {
         font-family: 'Montserrat';
         font-weight: 600;
-        font-size: 20px;
+        font-size: 15px;
         border: none;
         outline: none;
         cursor: pointer;
         transition: all 0.4s;
+        border-radius: 5px;
     }
 `;
 
 const Thead = styled.thead`
-    font-size: 30px;
+    font-size: 20px;
 
     & th {
-        border-bottom: 5px solid #00A4F7;
+        border-bottom: 2px solid #00A4F7;
     }
 `;
 
 const Tbody = styled.tbody`
-    font-size: 25px;
+    font-size: 15px;
 
     & > tr > td {
         border-bottom: 2px solid #DADADA;
 
         & input {
-            height: 40px;
-            font-size: 25px;
+            height: 30px;
+            font-size: 15px;
 
             &::placeholder {
-                font-size: 25px;
+                font-size: 15px;
             }
         }
     }
@@ -58,8 +59,7 @@ const Tbody = styled.tbody`
 const AddItem = styled.button`
     background: #00A4F7;
     color: #fff;
-    height: 66px;
-    padding: 5px 15px;
+    padding: 5px;
     border-radius: 5px; 
     
     &:disabled {
@@ -76,12 +76,12 @@ const AddItem = styled.button`
 `;
 
 const Remove = styled.button`
-    height: 60px;
     background: ${props => props.type === 'remove_item' ? '#dc3545' : '#fff'};
     box-shadow: 0px 0 2px 1px #dc3545;
     color: ${props => props.type === 'remove_item' ? '#fff' : '#dc3545'};
     opacity: ${props => props.type === 'remove_item' ? 0.1 : 1};
-    
+    padding: 10px 5px;
+
     &:hover {
         opacity: 1;
         background: #dc3545;
@@ -100,77 +100,46 @@ const NewElementFileds = styled.tr`
         &:focus {
             border: none;
             outline: none;
-            border-bottom: 5px solid #00A4F7;
+            border-bottom: 2px solid #00A4F7;
         }
     }
 
+
     & > td {
         border-bottom: none;
-    }
-
-    & > td {
-        padding: 20px 15px;
+        padding: 6px 6px;
 
         & > input[type="checkbox"] {
-            width: 25px;
-            height: 25px;
+            width: 20px;
+            height: 20px;
             border: none;
             outline: none;
             margin: 0;
             position: relative;
-            top: 5px;
+            top: 3px;
             margin-right: 10px;
         }
 
-    }
-`;
-
-const SettingsPanel = styled.form`
-    display: flex;
-    align-items: center;
-    width: 300px;
-    
-    position: relative;
-    left: 564px;
-    display: flex;
-    flex-flow: column;
-    align-items: flex-start;
-    font-size: 25px;
-
-    select {
-        border: none;
-        outline: none;
-        height: 50px;
-        width: 100%;
-        margin-bottom: 10px;
-
-        option {
-            font-size: 25px;
+        & > label {
+            position: relative;
+            top: -3px;
         }
 
-        &:focus {
-            border: none;
-            outline: none;
+        &:nth-child(1) {
+            button {
+                width: 100px;
+            }
         }
-    }
 
-    input {
-        width: 100%;
-        border: none;
-        outline: none;
-        height: 50px;
-        margin-bottom: 10px;
-        border-bottom: 2px solid #DADADA;
-
-        &:focus {
-            border: none;
-            outline: none;
-            border-bottom: 5px solid #00A4F7;
+        &:nth-child(5) {
+            width: 10%;
         }
-    }
 
-    button {
-        padding: 10px 10px;
+        &:nth-child(7) {
+            button {
+                width: 85px;
+            }
+        }
     }
 `;
 
@@ -194,8 +163,8 @@ const Table = (props) => {
         mission: '',
         isMultiple: false,
     });
-    const [isHint, setIsHint] = useState(true);
-
+    const [isHint, setIsHint] = useState(false);
+    
     useEffect(() => {
         const timerId = setTimeout(() => setIsHint(false), 4000);
     }, [])
@@ -250,24 +219,34 @@ const Table = (props) => {
         });        
     }
 
+    const filterList = (e, state) => {
+        e.preventDefault();
+        const { inputValue, selectValue } = state;
+        
+        if (selectValue === 'mission') {
+            const inputValueArr = inputValue.split('/');
+            console.log(inputValueArr);
+            // setAstronautList(astronautList
+            //     .slice()
+            //     .filter((elm) => elm.mission.split(' / ').includes(inputValue))
+            // )
+        } else {
+            
+        }
+
+        // setAstronautList(
+        //     astronautList.slice().filter((elm) => String(elm[selectValue]) === String(inputValue))
+        // )
+    }   
+
     return (
         <>
-            <SettingsPanel>
-                <select name="selectList" size="1">
-                    <option defaultValue>Name</option>
-                    <option>First Flight Date</option>
-                    <option>Days In Space</option>
-                    <option>Mission Name</option>
-                    <option>Multiple</option>
-                </select>
-                <input  />
-                <button>Filter</button>
-            </SettingsPanel>
             {
                 isHint && (
                     <Hint>Сlick on column heading to sort</Hint>
                 )
             }
+            <Filter isList={astronautList.length !== 0} filterFunc={filterList} />
             <TableContainer>
                 <Thead>
                     <tr>
@@ -346,8 +325,8 @@ const Table = (props) => {
                                 value={newElementFields.date} 
                                 placeholder="date" 
                                 onChange={(e) => setNewElementFields({
-                                    ...newElementFields,
-                                    date: Number(e.target.value.trim()),
+                                        ...newElementFields,
+                                        date: Number(e.target.value.trim()),
                                 })}
                             />
                         </td>
@@ -400,7 +379,7 @@ const Table = (props) => {
                                     isMultiple: '',
                                 })}
                             >
-                                Clear fields
+                                Clear
                             </Remove>
                         </td>
                     </NewElementFileds>

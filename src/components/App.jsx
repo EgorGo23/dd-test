@@ -5,13 +5,17 @@ import {withDataFetching} from './hoc';
 import Table from './Table';
 
 const AppContainer = styled.div`
-    width: 100%;
+    width: 70%;
     height: 100%;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     padding-bottom: 100px;
     position: relative;
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    margin: 0 auto;
 `;
 
 const App = ({dataFromApi}) => {  
