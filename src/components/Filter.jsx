@@ -46,7 +46,7 @@ const FilterPanel = styled.form`
     button {
         border: none;
         outline: none;
-        padding: 10px 10px;
+        padding: 10px;
         width: 75px;
         background: #00A4F7;
         color: #fff;
@@ -70,8 +70,8 @@ const FilterPanel = styled.form`
 
 const Filter = (props) => {
     const [state, setState] = useState({
-        inputValue: '',
-        selectValue: 'name',
+        inputValue: '7',
+        selectValue: 'days',
     });
     
     const handleChange = ({target}) => {
@@ -94,8 +94,8 @@ const Filter = (props) => {
         <FilterPanel onSubmit={(e) => {
                 props.filterFunc(e, state);
                 setState({
-                    inputValue: '',
-                    selectValue: 'name',
+                    inputValue: '7',
+                    selectValue: 'days',
                 })
             }}
         >

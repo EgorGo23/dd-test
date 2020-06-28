@@ -3,7 +3,10 @@ import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import areFilled from '../utils/areFilled';
 import byField from '../utils/byField';
+import defaultData from '../defaultData';
 import Filter from './Filter';
+import Recovery from './Recovery';
+import Pagination from './Pagination';
 
 const TableContainer = styled.table`
     font-family: 'Montserrat';
@@ -144,14 +147,11 @@ const NewElementFileds = styled.tr`
 `;
 
 const Hint = styled.p`
-    position: absolute;
-    font-size: 30px;
-    box-shadow: inset 0px 0px 6px 1px #00A4F7;
+    font-size: 20px;
+    border: 2px solid #DADADA;
+    border-radius: 5px;
     border-radius: 5px;
     padding: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 80px;
 `;
 
 const Table = (props) => {
@@ -163,8 +163,8 @@ const Table = (props) => {
         mission: '',
         isMultiple: false,
     });
-    const [isHint, setIsHint] = useState(false);
-    
+    const [isHint, setIsHint] = useState(true);
+
     useEffect(() => {
         const timerId = setTimeout(() => setIsHint(false), 4000);
     }, [])
@@ -224,28 +224,29 @@ const Table = (props) => {
         const { inputValue, selectValue } = state;
         
         if (selectValue === 'mission') {
-            const inputValueArr = inputValue.split('/');
-            console.log(inputValueArr);
-            // setAstronautList(astronautList
-            //     .slice()
-            //     .filter((elm) => elm.mission.split(' / ').includes(inputValue))
-            // )
+            setAstronautList(astronautList
+                .slice()
+                .filter((elm) => elm.mission.split(' / ').includes(inputValue))
+            )
         } else {
-            
+            setAstronautList(
+                astronautList.slice().filter((elm) => String(elm[selectValue]) === String(inputValue))
+            )
         }
-
-        // setAstronautList(
-        //     astronautList.slice().filter((elm) => String(elm[selectValue]) === String(inputValue))
-        // )
     }   
+
+    const recoverData = () => {
+        setAstronautList(defaultData);
+    }
 
     return (
         <>
             {
                 isHint && (
-                    <Hint>Сlick on column heading to sort</Hint>
+                    <Hint>Сlick on column name to sort</Hint>
                 )
             }
+            <Recovery recoveryFunc={recoverData} />
             <Filter isList={astronautList.length !== 0} filterFunc={filterList} />
             <TableContainer>
                 <Thead>
@@ -385,6 +386,7 @@ const Table = (props) => {
                     </NewElementFileds>
                 </Tbody>
             </TableContainer>
+            <Pagination numOfElements={3} />
         </>
     )
 }

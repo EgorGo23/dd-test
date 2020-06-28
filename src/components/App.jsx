@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-
 import {withDataFetching} from './hoc';
 import Table from './Table';
+
 
 const AppContainer = styled.div`
     width: 70%;
@@ -14,7 +14,7 @@ const AppContainer = styled.div`
     position: relative;
     display: flex;
     flex-flow: column;
-    align-items: flex-start;
+    align-items: center;
     margin: 0 auto;
 `;
 
