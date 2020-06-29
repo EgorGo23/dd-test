@@ -39,10 +39,14 @@ module.exports = {
     port: 4120,
     open: isWindows ? 'chrome' : 'google-chrome',
     proxy: {
-      "/astronauts": 'http://localhost:4320/',
-      "secure": false,
-      "changeOrigin": true
+      '/api': {
+        target: 'http://localhost:4320',
+        rewritePath: {'^/api': ''},
+        secure: false,
+        changeOrigin: true,
+      }
     },
+  
   },
   devtool: isDev ? 'source-map' : '',
   module: {

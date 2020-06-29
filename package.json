@@ -10,11 +10,6 @@
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run dev-server\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false webpack -p"
   },
-  "proxy": {
-    "/astronauts": "http://localhost:4320/",
-    "secure": false,
-    "changeOrigin": true
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/EgorGo23/dd-test.git"
@@ -29,6 +24,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.10.1",
     "concurrently": "^5.2.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

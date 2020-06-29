@@ -40,4 +40,4 @@ const App = ({dataFromApi}) => {
     )
 }
 
-export default withDataFetching(App)('/astronauts');
+export default withDataFetching(App)('/api');

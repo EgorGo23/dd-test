@@ -171,7 +171,7 @@ const Table = (props) => {
     useEffect(() => {
         const sendDataToServer = async () => {
             try {
-                const response = await fetch('/astronauts', {
+                const response = await fetch('/api', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
