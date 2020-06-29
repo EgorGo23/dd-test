@@ -6,7 +6,6 @@ import byField from '../utils/byField';
 import defaultData from '../defaultData';
 import Filter from './Filter';
 import Recovery from './Recovery';
-import Pagination from './Pagination';
 
 const TableContainer = styled.table`
     font-family: 'Montserrat';
@@ -224,17 +223,20 @@ const Table = (props) => {
         const { inputValue, selectValue } = state;
         
         if (selectValue === 'mission') {
-            setAstronautList(astronautList
-                .slice()
-                .filter((elm) => elm.mission.split(' / ').includes(inputValue))
-            )
+            const filteredArr = astronautList.slice().filter((elm) => elm.mission.split(' / ').includes(inputValue));
+            
+            if (filteredArr.length !== 0) {
+                setAstronautList(filteredArr);
+            }
         } else {
-            setAstronautList(
-                astronautList.slice().filter((elm) => String(elm[selectValue]) === String(inputValue))
-            )
+            const filteredArr = astronautList.slice().filter((elm) => String(elm[selectValue]) === String(inputValue));
+            
+            if (filteredArr.length !== 0) {
+                setAstronautList(filteredArr);
+            }
         }
     }   
-
+    
     const recoverData = () => {
         setAstronautList(defaultData);
     }
@@ -386,7 +388,6 @@ const Table = (props) => {
                     </NewElementFileds>
                 </Tbody>
             </TableContainer>
-            <Pagination numOfElements={3} />
         </>
     )
 }
